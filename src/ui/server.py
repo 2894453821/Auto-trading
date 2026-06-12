@@ -639,7 +639,8 @@ INDEX_HTML = r"""<!doctype html>
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       background: var(--bg);
       color: var(--text);
       font-family: "Segoe UI", Arial, sans-serif;
