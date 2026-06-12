@@ -1,0 +1,81 @@
+trading_mode: paper
+live_trading_enabled: false
+
+symbols:
+  - BTC-USDT
+  - ETH-USDT
+
+allowed_symbols:
+  - BTC-USDT
+  - ETH-USDT
+  - SOL-USDT
+
+timeframes:
+  trend: "1H"
+  signal: "15m"
+  entry: "5m"
+
+timeframe_signal: "15m"
+timeframe_entry: "5m"
+timeframe_trend: "1H"
+
+max_risk_per_trade: 0.005
+max_daily_loss: 0.02
+max_positions: 2
+leverage: 1
+stop_after_consecutive_losses: 3
+require_manual_confirm: true
+enable_short: false
+enable_futures: false
+isolated_margin: true
+
+spread_limit: 0.0005
+atr_anomaly_multiplier: 2.5
+stop_loss_atr_multiplier: 1.2
+take_profit_rr: 1.8
+trailing_stop_enabled: true
+trailing_stop_atr_multiplier: 1.0
+
+paper:
+  starting_equity: 10000
+  futures_enabled: true
+  max_leverage: 100
+
+strategy:
+  min_score: 3
+  require_volume_confirmation: false
+
+fees:
+  taker: 0.001
+  maker: 0.0008
+
+slippage:
+  default: 0.0005
+
+risk:
+  max_risk_per_trade: 0.005
+  max_daily_loss: 0.02
+  max_positions: 2
+  max_leverage: 1
+  stop_after_consecutive_losses: 3
+
+ai_advisor:
+  enable_ai_summary: true
+  allow_ai_auto_order: false
+
+notification:
+  enable_telegram: false
+  enable_email: false
+
+okx:
+  rest_base_url: "https://www.okx.com"
+  public_ws_url: "wss://ws.okx.com:8443/ws/v5/public"
+  private_ws_url: "wss://ws.okx.com:8443/ws/v5/private"
+  demo_public_ws_url: "wss://wspap.okx.com:8443/ws/v5/public"
+  demo_private_ws_url: "wss://wspap.okx.com:8443/ws/v5/private"
+  use_demo_trading_header: true
+  request_timeout_seconds: 10
+
+logging:
+  level: INFO
+  directory: logs
