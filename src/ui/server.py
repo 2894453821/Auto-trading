@@ -495,11 +495,11 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
             symbol = str(body.get("symbol") or self.app.config.symbols[0])
             leverage = int(body.get("leverage", 1))
             amount_usdt = float(body.get("amountUsdt", 0) or 0)
-            order_quantity = _optional_float(body.get("orderQty"))
-            stop_loss = _optional_float(body.get("stopLoss"))
-            take_profit = _optional_float(body.get("takeProfit"))
-            entry_price = _optional_float(body.get("entryPrice"))
-            close_quantity = _optional_float(body.get("closeQuantity"))
+            order_quantity = _optional_float(body.get("orderQty"), zero_as_none=True)
+            stop_loss = _optional_float(body.get("stopLoss"), field_name="stop loss")
+            take_profit = _optional_float(body.get("takeProfit"), field_name="take profit")
+            entry_price = _optional_float(body.get("entryPrice"), zero_as_none=True)
+            close_quantity = _optional_float(body.get("closeQuantity"), zero_as_none=True)
             order_mode = str(body.get("orderMode") or "protected_market")
             if parsed.path == "/api/advice":
                 self._send_json(self.app.analyze(symbol, leverage))
@@ -599,12 +599,19 @@ def _to_plain(value: Any) -> Any:
     return value
 
 
-def _optional_float(value: Any) -> float | None:
+def _optional_float(
+    value: Any,
+    *,
+    field_name: str = "value",
+    zero_as_none: bool = False,
+) -> float | None:
     if value is None or value == "":
         return None
     parsed = float(value)
+    if parsed == 0 and zero_as_none:
+        return None
     if parsed <= 0:
-        raise ValueError("manual stop/take-profit price must be positive")
+        raise ValueError(f"{field_name} must be positive")
     return parsed
 
 
